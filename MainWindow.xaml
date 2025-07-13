@@ -1,0 +1,224 @@
+﻿<Window x:Class="OfficeEquipment.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OfficeEquipment"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+
+        Title="Учет офисного оборудования" 
+        Height="550" 
+        Width="900"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок приложения -->
+        <Border Grid.Row="0" 
+                Background="#FF3F51B5" 
+                CornerRadius="5" 
+                Padding="10"
+                Margin="0,0,0,15">
+            <TextBlock Text="УЧЕТ ОФИСНОГО ОБОРУДОВАНИЯ" 
+                       FontSize="20" 
+                       FontWeight="Bold" 
+                       Foreground="White"
+                       HorizontalAlignment="Center"/>
+        </Border>
+
+        <!-- Основная область данных -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Таблица оборудования -->
+            <DataGrid x:Name="EquipmentGrid"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      IsReadOnly="True"
+                      SelectionMode="Single"
+                      GridLinesVisibility="None"
+                      HeadersVisibility="Column"
+                      RowHeaderWidth="0"
+                      SelectionChanged="EquipmentGrid_SelectionChanged">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Width="50" Binding="{Binding Id}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="НАИМЕНОВАНИЕ" Width="*" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="ТИП" Width="150" Binding="{Binding Type}"/>
+                    <DataGridTextColumn Header="СТАТУС" Width="150" Binding="{Binding Status}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <!-- Панель действий -->
+            <StackPanel Grid.Column="1" 
+                        Margin="15,0,0,0" 
+                        VerticalAlignment="Top"
+                        Width="150">
+                <Button x:Name="AddButton" 
+                        Content="Добавить" 
+                        Margin="0,0,0,10"
+                        Padding="8,4"
+                        FontWeight="Bold"
+                        Click="AddButton_Click"/>
+                <Button x:Name="EditButton" 
+                        Content="Изменить" 
+                        Margin="0,0,0,10"
+                        Padding="8,4"
+                        FontWeight="Bold"
+                        Click="EditButton_Click"/>
+                <Button x:Name="DeleteButton" 
+                        Content="Удалить" 
+                        Margin="0,0,0,20"
+                        Padding="8,4"
+                        FontWeight="Bold"
+                        Click="DeleteButton_Click"/>
+
+                <Separator/>
+
+                <TextBlock Text="Фильтрация" 
+                           FontWeight="Bold"
+                           Margin="0,15,0,5"/>
+
+                <ComboBox x:Name="FilterTypeComboBox"
+                          Margin="0,0,0,5"
+                          SelectedIndex="0">
+                    <sys:String>Все типы</sys:String>
+                    <sys:String>Принтер</sys:String>
+                    <sys:String>Сканер</sys:String>
+                    <sys:String>Монитор</sys:String>
+                </ComboBox>
+
+                <ComboBox x:Name="FilterStatusComboBox"
+                          Margin="0,0,0,10"
+                          SelectedIndex="0">
+                    <sys:String>Все статусы</sys:String>
+                    <sys:String>В пользовании</sys:String>
+                    <sys:String>На складе</sys:String>
+                    <sys:String>На ремонте</sys:String>
+                </ComboBox>
+
+                <Button x:Name="ApplyFilterButton" 
+                        Content="Применить фильтр"
+                        Padding="5,2"
+                        Click="ApplyFilterButton_Click"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Форма редактирования -->
+        <Border Grid.Row="1" 
+                x:Name="EditForm"
+                Visibility="Collapsed"
+                Background="White"
+                BorderBrush="#FF3F51B5"
+                BorderThickness="2"
+                CornerRadius="5"
+                Padding="20"
+                Width="400"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Заголовок формы -->
+                <TextBlock Grid.Row="0" 
+                           Text="Данные оборудования" 
+                           FontSize="18"
+                           FontWeight="Bold"
+                           Margin="0,0,0,15"
+                           HorizontalAlignment="Center"/>
+
+                <!-- Поле ID -->
+                <TextBlock Grid.Row="1" 
+                           Text="ID:" 
+                           FontWeight="Bold"/>
+                <TextBlock Grid.Row="1" 
+                           x:Name="IdTextBlock"
+                           HorizontalAlignment="Right"
+                           FontWeight="Bold"
+                           Margin="0,0,0,10"/>
+
+                <!-- Поле Наименование -->
+                <TextBlock Grid.Row="2" 
+                           Text="Наименование:" 
+                           FontWeight="Bold"/>
+                <TextBox Grid.Row="2" 
+                         x:Name="NameTextBox"
+                         Margin="0,0,0,10"/>
+
+                <!-- Выбор типа -->
+                <TextBlock Grid.Row="3" 
+                           Text="Тип оборудования:" 
+                           FontWeight="Bold"/>
+                <ComboBox Grid.Row="3" 
+                          x:Name="TypeComboBox"
+                          Margin="0,0,0,10"
+                          SelectedIndex="0">
+                    <sys:String>Принтер</sys:String>
+                    <sys:String>Сканер</sys:String>
+                    <sys:String>Монитор</sys:String>
+                </ComboBox>
+
+                <!-- Выбор статуса -->
+                <TextBlock Grid.Row="4" 
+                           Text="Статус:" 
+                           FontWeight="Bold"/>
+                <ComboBox Grid.Row="4" 
+                          x:Name="StatusComboBox"
+                          Margin="0,0,0,15"
+                          SelectedIndex="0">
+                    <sys:String>В пользовании</sys:String>
+                    <sys:String>На складе</sys:String>
+                    <sys:String>На ремонте</sys:String>
+                </ComboBox>
+
+                <!-- Кнопки формы -->
+                <StackPanel Grid.Row="5" 
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Right">
+                    <Button x:Name="SaveButton" 
+                            Content="Сохранить" 
+                            Width="100" 
+                            Margin="0,0,10,0"
+                            Padding="5"
+                            Background="#FF4CAF50"
+                            Foreground="White"
+                            Click="SaveButton_Click"/>
+                    <Button x:Name="CancelButton" 
+                            Content="Отмена" 
+                            Width="100" 
+                            Padding="5"
+                            Background="#FFF44336"
+                            Foreground="White"
+                            Click="CancelButton_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Статус бар -->
+        <StatusBar Grid.Row="2" Margin="0,10,0,0">
+            <StatusBarItem>
+                <TextBlock x:Name="StatusText" Text="Готово"/>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Всего записей:"/>
+                    <TextBlock x:Name="RecordCountText" Text="0" Margin="5,0,0,0" FontWeight="Bold"/>
+                </StackPanel>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>

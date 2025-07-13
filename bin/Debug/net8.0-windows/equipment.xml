@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EquipmentList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Equipment>
+    <Id>1</Id>
+    <Name>Принтер HP LaserJet</Name>
+    <Type>Принтер</Type>
+    <Status>В пользовании</Status>
+  </Equipment>
+  <Equipment>
+    <Id>2</Id>
+    <Name>Сканер Epson Perfection</Name>
+    <Type>Сканер</Type>
+    <Status>На складе</Status>
+  </Equipment>
+  <Equipment>
+    <Id>3</Id>
+    <Name>Монитор Dell 24"</Name>
+    <Type>Монитор</Type>
+    <Status>На ремонте</Status>
+  </Equipment>
+  <Equipment>
+    <Id>4</Id>
+    <Name>Принтер Canon PIXMA</Name>
+    <Type>Принтер</Type>
+    <Status>На складе</Status>
+  </Equipment>
+  <Equipment>
+    <Id>5</Id>
+    <Name>Монитор LG 27"</Name>
+    <Type>Монитор</Type>
+    <Status>В пользовании</Status>
+  </Equipment>
+  <Equipment>
+    <Id>6</Id>
+    <Name>Монитор DEXP</Name>
+    <Type>Монитор</Type>
+    <Status>На ремонте</Status>
+  </Equipment>
+</EquipmentList>
